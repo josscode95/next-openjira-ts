@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren, useReducer } from 'react';
-import { v4 as uuidv4, v4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 import { Entry } from '../../interfaces';
 import { EntriesContext, entriesReducer } from './';
@@ -9,26 +9,7 @@ export interface EntriesState {
 }
 
 const ENTRIES_INITIAL_STATE:EntriesState = {
-  entries: [
-    {
-      _id: uuidv4(),
-      description: 'Pending: Amet dolor incididunt veniam elit cupidatat labore exercitation mollit elit consectetur.',
-      status: 'pending',
-      createdAt: Date.now()
-    },
-    {
-      _id: uuidv4(),
-      description: 'In-Progress: Nisi excepteur veniam occaecat tempor deserunt occaecat deserunt magna quis.',
-      status: 'in-progress',
-      createdAt: Date.now() - 100000
-    },
-    {
-      _id: uuidv4(),
-      description: 'Finished: Fugiat cupidatat ipsum aliquip laboris nisi.',
-      status: 'finished',
-      createdAt: Date.now() - 10000000
-    },
-  ]
+  entries: []
 }
 
 export const EntriesProvider:FC<PropsWithChildren> = ({ children }) => {

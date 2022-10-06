@@ -16,9 +16,7 @@ export function middleware( req:NextRequest ){
 }
 
 export const config = {
-  // matcher: '/about/:path*'
   matcher: [
-    // '/api/:path', 
     '/api/entries/:path/'
   ]
 }

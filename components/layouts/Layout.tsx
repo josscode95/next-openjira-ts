@@ -5,7 +5,7 @@ import { Navbar, Sidebar } from "../ui";
 
 interface LayoutI {
   title?:string;
-  children:ReactElement
+  children:ReactElement|ReactElement[];
 }
 
 export const Layout:FC<LayoutI> = ({ title = 'OpenJira', children }) => {

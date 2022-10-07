@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, useContext, useMemo, useState } from "react";
 import { GetServerSideProps } from 'next'
+import { useRouter } from "next/router";
 
 import { 
   capitalize,
@@ -34,11 +35,13 @@ interface Props {
 
 const EntryPage:FC<Props> = ({ entry }) => {
 
-  const { updateEntry } = useContext( EntriesContext )
+  const { updateEntry, deleteEntry } = useContext( EntriesContext )
 
   const [ inputValue, setInputValue ] = useState(entry.description);
   const [ status, setStatus ] = useState<EntryStatus>(entry.status);
   const [ touched, setTouched ] = useState(false);
+
+  const router = useRouter()
 
   const isNotValid = useMemo(() => inputValue.length <= 0 && touched, [ inputValue, touched ])
 
@@ -61,6 +64,11 @@ const EntryPage:FC<Props> = ({ entry }) => {
     }
 
     updateEntry( updatedEntry, true )
+  }
+
+  const onDelete = () => {
+    deleteEntry( entry )
+    router.push('/')
   }
 
   return (
@@ -131,6 +139,7 @@ const EntryPage:FC<Props> = ({ entry }) => {
           right: 30,
           backgroundColor: 'error.dark'
         }}
+        onClick={ onDelete }
       >
         <DeleteOutlinedIcon />
       </IconButton>

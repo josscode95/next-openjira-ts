@@ -17,9 +17,11 @@ export default function handler(req:NextApiRequest, res:NextApiResponse<Data>) {
 
   switch ( req.method ) {
     case 'GET':
-      return getOneEntry( req, res )
+      return getOneEntry( req, res );
     case 'PUT':
       return updateEntry( req, res );
+    case 'DELETE':
+      return deleteEntry( req, res );
     default:
       return res.status(400).json({ message: 'Metodo no existe' })
   }
@@ -64,7 +66,7 @@ const getOneEntry = async(req:NextApiRequest, res:NextApiResponse<Data>) => {
   const { id } = req.query;
 
   await db.connect();
-  const entry= await Entry.findById( id );
+  const entry = await Entry.findById( id );
   await db.disconnect();
 
   if( !entry){
@@ -74,4 +76,20 @@ const getOneEntry = async(req:NextApiRequest, res:NextApiResponse<Data>) => {
   return res.status(200).json( entry )
   
 
+}
+
+const deleteEntry = async(req:NextApiRequest, res:NextApiResponse<Data>) => {
+
+  const { id } = req.query;
+
+  await db.connect();
+  const entry = await Entry.findByIdAndDelete( id );
+  await db.disconnect();
+
+  if( !entry){
+    return res.status(400).json({ message: `No hay registro con ese ID: ${ id }` })
+  }
+
+  return res.status(200).json({ message: `El card con la descripcion ${ entry.description } se elimino.` })
+  
 }

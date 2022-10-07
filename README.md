@@ -27,3 +27,6 @@ Llamara:
 ```
   http://localhost:3000/api/seed
 ```
+
+# Deploy en:
+https://next-openjira-ts.vercel.app/
